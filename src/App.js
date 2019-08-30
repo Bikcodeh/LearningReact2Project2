@@ -22,9 +22,6 @@ class App extends React.Component{
   render() {
     return (
       <Router>
-        {/** <div className="App">
-          <Link to="/customers">Customers</Link>
-          </div> */}
           <div>
           <Switch>
               <Route path="/customers/new" component={this.renderCustomerNewContainer} />
