@@ -26,6 +26,13 @@ code {
   padding: 10px;
   margin: 10px;
 }
+.customers-list-item .field{
+  width: 160px;
+  margin: 1px;
+  padding: 4px;
+  background: #EEE;
+  display: inline-block;
+}
 
 .customer-actions button{
   background: white;

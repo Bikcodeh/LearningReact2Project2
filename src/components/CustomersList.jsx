@@ -2,12 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CustomerListItem from './CustomerListItem';
 
-const propTypes = {
-    customers: PropTypes.array.isRequired,
-    urlPath: PropTypes.string.isRequired,
-}
 //Este componente es el que muestra todos los usuarioss
-const CustomerList = ({ customers, urlPath }) => {
+const CustomersList = ({ customers, urlPath }) => {
     return (
         <div>
             <div className="customers-list">
@@ -15,6 +11,7 @@ const CustomerList = ({ customers, urlPath }) => {
                     customers.map(c => 
                         <CustomerListItem 
                             key={c.dni}
+                            dni={c.dni}
                             name={c.name}
                             editAction={'Editar'}
                             delAction={'Eliminar'}
@@ -26,6 +23,9 @@ const CustomerList = ({ customers, urlPath }) => {
     )
 }
 
-CustomerList.propTypes = propTypes
+CustomersList.propTypes = {
+    customers: PropTypes.array.isRequired,
+    urlPath: PropTypes.string.isRequired,
+}
 
-export default CustomerList
+export default CustomersList
