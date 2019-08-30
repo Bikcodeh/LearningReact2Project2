@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import HomeContainer from './components/Containers/HomeContainer';
 import "./App.css";
 
 
@@ -14,7 +15,6 @@ import "./App.css";
 
 //Y al usar el switch, el exact es innecesario ya que estamos especificando las rutas
 class App extends React.Component{
-  renderHome = () => <h1>Home</h1>
   renderCustomerContainer = () => <h1>Customer container</h1>
   renderCustomerListContainer = () => <h1>Customers List container</h1>
   renderCustomerNewContainer = () => <h1>Customer new container</h1>
@@ -30,7 +30,7 @@ class App extends React.Component{
               <Route path="/customers/new" component={this.renderCustomerNewContainer} />
               <Route path="/customers/:dni" component={this.renderCustomerContainer} />
               <Route path="/customers" component={this.renderCustomerListContainer} />
-              <Route path="/" component={this.renderHome} />
+              <Route path="/" component={ HomeContainer } />
             </Switch>
           </div>
           
