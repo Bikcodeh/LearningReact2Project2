@@ -14,6 +14,7 @@ class CustomerCotainer extends React.Component {
         return <Route path='/costumers/:dni/edit' children={ 
             (props) => {
                 const CustomerControl = props.location.pathname.includes('edit') ? CustomerEdit : CustomerData;
+                //return <CustomerControl initialValues={this.props.customer} />
                 return <CustomerControl {...this.props.customer} />
             }
         } />
