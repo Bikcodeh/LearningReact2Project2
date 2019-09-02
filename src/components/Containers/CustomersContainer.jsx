@@ -6,6 +6,7 @@ import CustomerActions from "../CustomerActions";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchCustomers } from "../../actions/fetchCustomers";
+import { getCustomers } from './../../selectors/customers';
 
 const propTypes = {
   fetchCustomers: PropTypes.func.isRequired,
@@ -53,7 +54,7 @@ CustomersContainer.defaultProps = {
 
 //state.customers estamos solicitando lo que esta en el reducer costumers
 const mapStateToProps = state => ({
-    customers: state.customers
+    customers: getCustomers(state)
 })
 
 export default withRouter(
