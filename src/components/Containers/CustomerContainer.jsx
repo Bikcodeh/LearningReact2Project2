@@ -9,7 +9,7 @@ class CustomerCotainer extends React.Component {
         return (
             <div>
                 <AppFrame 
-                    header={`Cliente`} 
+                    header={`Cliente ${this.props.dni}`} 
                     body={<p>Datos del cliente</p>}>
                 </AppFrame>
             </div>
@@ -17,6 +17,7 @@ class CustomerCotainer extends React.Component {
     }
 }
 CustomerCotainer.propTypes = { 
+    dni: PropTypes.string.isRequired,
 
 }
 

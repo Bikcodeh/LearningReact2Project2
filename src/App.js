@@ -27,7 +27,12 @@ class App extends React.Component{
           <div>
           <Switch>
               <Route path="/customers/new" component={this.renderCustomerNewContainer} />
-              <Route path="/customers/:dni" component={CustomerCotainer} />
+              <Route path="/customers/:dni" render={props => <CustomerCotainer dni={props.match.params.dni} />} />
+              {/** Al tenerlo con render, ya no le inyecta las otras propiedades history, match, location
+                render recibe una funcion, le damos props para que coja el wildcard de la url y asi mandarselo al componente
+                { ...props } se usa para mandarle tambien las propiedades del route en caso de necesitar 
+                <Route path="/customers/:dni" render={props => <CustomerCotainer  { ...props} dni={props.match.params.dni} />} /> 
+            */}
               <Route path="/customers" component={ CustomersContainer} />
               <Route path="/" component={ HomeContainer } />
             </Switch>
