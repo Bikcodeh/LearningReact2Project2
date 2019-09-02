@@ -1,21 +1,11 @@
 import { FETCH_CUSTOMERS } from "../constants";
 import { createAction } from "redux-actions";
 
-const customers = [
-  {
-    dni: "27000",
-    name: "Juan Pereza",
-    age: 37
-  },
-  {
-    dni: "30000",
-    name: "Otro",
-    age: 23
-  },
-  {
-    dni: "33000",
-    name: "Victor Hoyos",
-    age: 21
-  }
-];
-export const fetchCustomers = createAction(FETCH_CUSTOMERS, () => customers);
+const url = 'http://localhost:3001/customers'
+
+const apiFetchCustomers = () => fetch(url).then(r => r.json());
+
+//cuando el middleware redux promise detecta que como payload estamos pasando una promise
+//entonces ejecuta la promise y una vez que obtiene el resultado genera una accion que ahi si se termina de resolver
+//y la toma el reducer
+export const fetchCustomers = createAction(FETCH_CUSTOMERS, apiFetchCustomers);
