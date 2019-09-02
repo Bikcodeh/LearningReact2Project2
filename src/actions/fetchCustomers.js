@@ -18,4 +18,4 @@ const customers = [
     age: 21
   }
 ];
-export const fetchCustomers = createAction(FETCH_CUSTOMERS);
+export const fetchCustomers = createAction(FETCH_CUSTOMERS, () => customers);

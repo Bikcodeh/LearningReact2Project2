@@ -51,9 +51,14 @@ CustomersContainer.defaultProps = {
   customers: []
 };
 
+//state.customers estamos solicitando lo que esta en el reducer costumers
+const mapStateToProps = state => ({
+    customers: state.customers
+})
+
 export default withRouter(
   connect(
-    null,
+    mapStateToProps,
     { fetchCustomers }
   )(CustomersContainer)
 );
