@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { reduxForm, Field } from 'redux-form';
 
 const propTypes = {
     name: PropTypes.string,
@@ -18,4 +19,4 @@ const CustomerEdit = ({ name, dni, age}) => {
 
 CustomerEdit.propTypes = propTypes
 
-export default CustomerEdit
+export default reduxForm({ form: 'CustomerEdit'})(CustomerEdit)
