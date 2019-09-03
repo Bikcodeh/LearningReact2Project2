@@ -7,9 +7,16 @@ import { Route } from 'react-router-dom';
 import CustomerEdit from './../CustomerEdit';
 import CustomerData from './../CustomerData';
 import { withRouter } from 'react-router-dom';
+import { fetchCustomers } from './../../actions/fetchCustomers';
 
 class CustomerCotainer extends React.Component {
     
+    componentDidMount(){
+        if(!this.props.customer){
+            this.props.fetchCustomers();
+        }
+    }
+
     handleSubmit = values => {
         
         console.log(JSON.stringify(values))   
@@ -23,10 +30,13 @@ class CustomerCotainer extends React.Component {
         
         return <Route path='/costumers/:dni/edit' children={ 
             (props) => {
+                if(this.props.customer){
 
-                const CustomerControl = props.location.pathname.includes('edit') ? CustomerEdit : CustomerData;
-                //return <CustomerControl initialValues={this.props.customer} />
-                return <CustomerControl {...this.props.customer} onSubmit={this.handleSubmit} onBack={this.handleOnBack}/>
+                    const CustomerControl = props.location.pathname.includes('edit') ? CustomerEdit : CustomerData;
+                    //return <CustomerControl initialValues={this.props.customer} />
+                    return <CustomerControl {...this.props.customer} onSubmit={this.handleSubmit} onBack={this.handleOnBack}/>
+                }
+                return null;
             }
         } />
     }
@@ -44,7 +54,8 @@ class CustomerCotainer extends React.Component {
 }
 CustomerCotainer.propTypes = { 
     dni: PropTypes.string.isRequired,
-    //customer: PropTypes.object.isRequired,
+    customer: PropTypes.object.isRequired,
+    fetchCustomers: PropTypes.func.isRequired,
 
 }
 
@@ -52,4 +63,6 @@ const mapStateToProps = (state, props) => ({
     customer: getCustomerByDni(state, props)
 })
 
-export default withRouter(connect(mapStateToProps, null)(CustomerCotainer));
+export default withRouter(connect(mapStateToProps, {
+    fetchCustomers
+})(CustomerCotainer));
