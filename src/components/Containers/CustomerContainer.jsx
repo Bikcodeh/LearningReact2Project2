@@ -6,6 +6,7 @@ import { getCustomerByDni } from './../../selectors/customers';
 import { Route } from 'react-router-dom';
 import CustomerEdit from './../CustomerEdit';
 import CustomerData from './../CustomerData';
+import { withRouter } from 'react-router-dom';
 
 class CustomerCotainer extends React.Component {
     
@@ -13,6 +14,11 @@ class CustomerCotainer extends React.Component {
         
         console.log(JSON.stringify(values))   
     }
+
+    handleOnBack =() =>{
+        this.props.history.goBack();
+    }
+
     renderBody = () => {
         
         return <Route path='/costumers/:dni/edit' children={ 
@@ -20,7 +26,7 @@ class CustomerCotainer extends React.Component {
 
                 const CustomerControl = props.location.pathname.includes('edit') ? CustomerEdit : CustomerData;
                 //return <CustomerControl initialValues={this.props.customer} />
-                return <CustomerControl {...this.props.customer} onSubmit={this.handleSubmit}/>
+                return <CustomerControl {...this.props.customer} onSubmit={this.handleSubmit} onBack={this.handleOnBack}/>
             }
         } />
     }
@@ -46,4 +52,4 @@ const mapStateToProps = (state, props) => ({
     customer: getCustomerByDni(state, props)
 })
 
-export default connect(mapStateToProps, null)(CustomerCotainer);
+export default withRouter(connect(mapStateToProps, null)(CustomerCotainer));

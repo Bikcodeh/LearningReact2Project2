@@ -7,7 +7,8 @@ import CustomerActions from './CustomerActions';
 const propTypes = {
   name: PropTypes.string,
   dni: PropTypes.string,
-  age: PropTypes.number
+  age: PropTypes.number,
+  onBack: PropTypes.func.isRequired,
 };
 
 //const isRequired = value => !value && "Este campo es requerido";
@@ -35,7 +36,7 @@ const MyField = ({ input, meta, type, label }) => (
   </div>
 );
 
-const CustomerEdit = ({ name, dni, age, handleSubmit, submitting }) => {
+const CustomerEdit = ({ name, dni, age, handleSubmit, submitting, onBack }) => {
   return (
     <div>
       <h2>Edicion del cliente</h2>
@@ -65,6 +66,7 @@ const CustomerEdit = ({ name, dni, age, handleSubmit, submitting }) => {
 
         <CustomerActions>
           <button type="submit" disabled={submitting}>Aceptar</button>
+          <button onClick={onBack}>Cancelar</button>
         </CustomerActions>
       </form>
     </div>
