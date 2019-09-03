@@ -20,7 +20,9 @@ class CustomerCotainer extends React.Component {
 
     handleSubmit = values => {
         const { id } = values;
-        this.props.updateCustomer(id, values);
+        //retornamos la promesa, ya que mientras se ejecuta la promesa, 
+        //el submiting estara en true, cuando ya se resulva pasara a false
+        return this.props.updateCustomer(id, values);
     }
 
     handleOnBack =() =>{
