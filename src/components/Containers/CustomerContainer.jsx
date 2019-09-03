@@ -9,13 +9,18 @@ import CustomerData from './../CustomerData';
 
 class CustomerCotainer extends React.Component {
     
+    handleSubmit = values => {
+        
+        console.log(JSON.stringify(values))   
+    }
     renderBody = () => {
         
         return <Route path='/costumers/:dni/edit' children={ 
             (props) => {
+
                 const CustomerControl = props.location.pathname.includes('edit') ? CustomerEdit : CustomerData;
                 //return <CustomerControl initialValues={this.props.customer} />
-                return <CustomerControl {...this.props.customer} />
+                return <CustomerControl {...this.props.customer} onSubmit={this.handleSubmit}/>
             }
         } />
     }
@@ -33,7 +38,7 @@ class CustomerCotainer extends React.Component {
 }
 CustomerCotainer.propTypes = { 
     dni: PropTypes.string.isRequired,
-    customer: PropTypes.object.isRequired,
+    //customer: PropTypes.object.isRequired,
 
 }
 
