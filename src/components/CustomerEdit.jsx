@@ -45,7 +45,7 @@ const toLower = value => value && value.toLowerCase();
 /* const onlyGrow = (value, previousValue, values) => 
   value && previousValue && (value > previousValue ? value: previousValue) */
 
-const CustomerEdit = ({ name, dni, age, handleSubmit, submitting, onBack }) => {
+const CustomerEdit = ({ name, dni, age, handleSubmit, submitting, onBack, pristine }) => {
   return (
     <div>
       <h2>Edicion del cliente</h2>
@@ -78,8 +78,8 @@ const CustomerEdit = ({ name, dni, age, handleSubmit, submitting, onBack }) => {
         ></Field>
 
         <CustomerActions>
-          <button type="submit" disabled={submitting}>Aceptar</button>
-          <button onClick={onBack}>Cancelar</button>
+          <button type="submit" disabled={pristine || submitting}>Aceptar</button>
+          <button onClick={onBack} disabled={submitting}>Cancelar</button>
         </CustomerActions>
       </form>
     </div>
