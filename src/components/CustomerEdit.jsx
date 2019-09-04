@@ -41,6 +41,9 @@ const toNumber = value => value && Number(value);
 const toUpper = value => value && value.toUpperCase();
 
 const toLower = value => value && value.toLowerCase();
+//La funciona normalize se ejecuta despues de la funcion parse
+const onlyGrow = (value, previousValue, values) => 
+  value && previousValue && (value > previousValue ? value: previousValue)
 
 const CustomerEdit = ({ name, dni, age, handleSubmit, submitting, onBack }) => {
   return (
@@ -71,6 +74,7 @@ const CustomerEdit = ({ name, dni, age, handleSubmit, submitting, onBack }) => {
           validate={isNumber}
           label="Edad"
           parse={toNumber}
+          normalize={onlyGrow}
         ></Field>
 
         <CustomerActions>
