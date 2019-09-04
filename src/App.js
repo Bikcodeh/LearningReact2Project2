@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomeContainer from './components/Containers/HomeContainer';
 import CustomersContainer from './components/Containers/CustomersContainer';
 import CustomerCotainer from './components/Containers/CustomerContainer';
+import NewCustomerContainer from './components/Containers/newCustomerContainer';
 import "./App.css";
 
 
@@ -26,7 +27,7 @@ class App extends React.Component{
       <Router>
           <div>
           <Switch>
-              <Route path="/customers/new" component={this.renderCustomerNewContainer} />
+              <Route path="/customers/new" component={NewCustomerContainer} />
               <Route path="/customers/:dni" render={props => <CustomerCotainer dni={props.match.params.dni} />} />
               {/** Al tenerlo con render, ya no le inyecta las otras propiedades history, match, location
                 render recibe una funcion, le damos props para que coja el wildcard de la url y asi mandarselo al componente
