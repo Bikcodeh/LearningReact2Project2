@@ -25,6 +25,10 @@ class CustomerCotainer extends React.Component {
         return this.props.updateCustomer(id, values);
     }
 
+    handleOnSubmitSuccess = () => {
+        this.props.history.goBack();
+    }
+
     handleOnBack =() =>{
         this.props.history.goBack();
     }
@@ -37,7 +41,10 @@ class CustomerCotainer extends React.Component {
 
                     const CustomerControl = props.location.pathname.includes('edit') ? CustomerEdit : CustomerData;
                     //return <CustomerControl initialValues={this.props.customer} />
-                    return <CustomerControl {...this.props.customer} onSubmit={this.handleSubmit} onBack={this.handleOnBack}/>
+                    return <CustomerControl {...this.props.customer} 
+                                onSubmit={this.handleSubmit} 
+                                onBack={this.handleOnBack}
+                                onSubmitSuccess={this.handleOnSubmitSuccess} />
                 }
                 return null;
             }
