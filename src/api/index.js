@@ -6,3 +6,9 @@ export const apiPut = (url, id, obj) => () =>
         body: JSON.stringify(obj),
         headers: new Headers({ 'content-type':'application/json'}) 
     }).then(v => v.json())
+    .then(r => {
+        if(r.error){
+            return Promise.reject(r)
+        }
+        return r;
+    })

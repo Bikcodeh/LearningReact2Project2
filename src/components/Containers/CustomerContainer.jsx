@@ -9,6 +9,7 @@ import CustomerData from './../CustomerData';
 import { withRouter } from 'react-router-dom';
 import { fetchCustomers } from './../../actions/fetchCustomers';
 import { updateCustomer } from './../../actions/updateCustomer';
+import { SubmissionError } from 'redux-form';
 
 class CustomerCotainer extends React.Component {
     
@@ -22,7 +23,11 @@ class CustomerCotainer extends React.Component {
         const { id } = values;
         //retornamos la promesa, ya que mientras se ejecuta la promesa, 
         //el submiting estara en true, cuando ya se resulva pasara a false
-        return this.props.updateCustomer(id, values);
+        return this.props.updateCustomer(id, values).catch( r => {
+            if(r.error){
+                throw new SubmissionError(r.validation);
+            }
+        });
     }
 
     handleOnSubmitSuccess = () => {
