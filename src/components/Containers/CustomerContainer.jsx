@@ -10,6 +10,7 @@ import { withRouter } from 'react-router-dom';
 import { fetchCustomers } from './../../actions/fetchCustomers';
 import { updateCustomer } from './../../actions/updateCustomer';
 import { SubmissionError } from 'redux-form';
+import { deleteCustomer } from './../../actions/deleteCustomer';
 
 class CustomerCotainer extends React.Component {
     
@@ -36,6 +37,7 @@ class CustomerCotainer extends React.Component {
 
     handleOnDelete = () => {
         console.log("handle delete")
+        this.props.deleteCustomer("30000");
     }
 
     handleOnBack =() =>{
@@ -86,6 +88,7 @@ CustomerCotainer.propTypes = {
     customer: PropTypes.object,
     fetchCustomers: PropTypes.func.isRequired,
     updateCustomer: PropTypes.func.isRequired,
+    deleteCustomer: PropTypes.func.isRequired,
 
 }
 
@@ -95,5 +98,6 @@ const mapStateToProps = (state, props) => ({
 
 export default withRouter(connect(mapStateToProps, {
     fetchCustomers,
-    updateCustomer
+    updateCustomer,
+    deleteCustomer
 })(CustomerCotainer));

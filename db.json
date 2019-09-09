@@ -1,18 +1,6 @@
 {
   "customers": [
     {
-      "id": "27000",
-      "dni": "27000",
-      "name": "masakio",
-      "age": 30
-    },
-    {
-      "id": "30000",
-      "dni": "30000",
-      "name": "NUEVOOOO",
-      "age": 99
-    },
-    {
       "id": "33000",
       "dni": "33000",
       "name": "VICTOR HOYOS",
