@@ -16,7 +16,9 @@ const propTypes = {
 
 class CustomersContainer extends React.Component {
   componentDidMount() {
-    this.props.fetchCustomers();
+    if(this.props.customers.length == 0){
+      this.props.fetchCustomers();
+    }
   }
 
   handleAddNew = () => {
