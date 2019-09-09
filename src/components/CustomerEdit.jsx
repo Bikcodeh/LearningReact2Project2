@@ -28,13 +28,6 @@ const validate = values => {
 };
 const isNumber = value => isNaN(Number(value)) && "El campo debe ser un numero";
 
-const MyField = ({ input, meta, type, label }) => (
-  <div>
-    <label htmlFor={label}>{label}</label>
-    <input {...input} type={!type ? "text" : type} />
-    {meta.touched && meta.error && <span>{meta.error}</span>}
-  </div>
-);
 
 const toNumber = value => value && Number(value);
 
@@ -43,25 +36,34 @@ const toUpper = value => value && value.toUpperCase();
 const toLower = value => value && value.toLowerCase();
 //La funciona normalize se ejecuta despues de la funcion parse
 /* const onlyGrow = (value, previousValue, values) => 
-  value && previousValue && (value > previousValue ? value: previousValue) */
+value && previousValue && (value > previousValue ? value: previousValue) */
 
 class CustomerEdit extends Component {
-  //Establecer el foco en un campo, usando el ref y luego validamos aqui en didmount
+
   componentDidMount(){
-    if(this.cuadrodetexto){
-      this.cuadrodetexto.focus();
+    if(this.txt){
+      this.txt.focus();
     }
   }
+
+  renderField = ({ input, meta, type, label, withFocus }) => (
+    <div>
+      <label htmlFor={label}>{label}</label>
+      <input {...input} type={!type ? "text" : type}  ref={withFocus && (txt => this.txt = txt)} />
+      {meta.touched && meta.error && <span>{meta.error}</span>}
+    </div>
+  );
+
   render() {
     const { handleSubmit, submitting, onBack, pristine } = this.props;
     return (
       <div>
         <h2>Edicion del cliente</h2>
-        Nuevo cuadro de texto: <input ref={txt => this.cuadrodetexto = txt} type="text" />
         <form onSubmit={handleSubmit}>
           <Field
+            withFocus
             name="name"
-            component={MyField}
+            component={this.renderField}
             type="text"
             label="Nombre"
             parse={toUpper}
@@ -70,7 +72,7 @@ class CustomerEdit extends Component {
 
           <Field
             name="dni"
-            component={MyField}
+            component={this.renderField}
             type="text"
             validate={[isNumber]}
             label="Dni"
@@ -78,7 +80,7 @@ class CustomerEdit extends Component {
 
           <Field
             name="age"
-            component={MyField}
+            component={this.renderField}
             type="number"
             validate={isNumber}
             label="Edad"
