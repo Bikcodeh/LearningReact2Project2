@@ -38,21 +38,27 @@ class CustomerCotainer extends React.Component {
         this.props.history.goBack();
     }
 
+    renderCustomerControl = (props) => {
+        if(this.props.customer){
+
+            const CustomerControl = props.location.pathname.includes('edit') ? CustomerEdit : CustomerData;
+            //return <CustomerControl initialValues={this.props.customer} />
+            return <CustomerControl {...this.props.customer} 
+                        onSubmit={this.handleSubmit} 
+                        onBack={this.handleOnBack}
+                        onSubmitSuccess={this.handleOnSubmitSuccess} />
+        }
+        return null;
+    }
+
     renderBody = () => {
         
         return <Route path='/costumers/:dni/edit' children={ 
-            (props) => {
-                if(this.props.customer){
-
-                    const CustomerControl = props.location.pathname.includes('edit') ? CustomerEdit : CustomerData;
-                    //return <CustomerControl initialValues={this.props.customer} />
-                    return <CustomerControl {...this.props.customer} 
-                                onSubmit={this.handleSubmit} 
-                                onBack={this.handleOnBack}
-                                onSubmitSuccess={this.handleOnSubmitSuccess} />
-                }
-                return null;
-            }
+            (props) => ( 
+                <Route path="/customers/:dbi/del" children={
+                    (props) => this.renderCustomerControl(props)
+                } />
+            )
         } />
     }
     //<p>Datos del cliente: "{this.props.customer.name}"</p>
