@@ -34,29 +34,37 @@ class CustomerCotainer extends React.Component {
         this.props.history.goBack();
     }
 
+    handleOnDelete = () => {
+        console.log("handle delete")
+    }
+
     handleOnBack =() =>{
         this.props.history.goBack();
     }
 
-    renderCustomerControl = (props) => {
+    renderCustomerControl = (isEdit, isDelete) => {
         if(this.props.customer){
 
-            const CustomerControl = props.location.pathname.includes('edit') ? CustomerEdit : CustomerData;
+            const CustomerControl = isEdit ? CustomerEdit : CustomerData;
             //return <CustomerControl initialValues={this.props.customer} />
             return <CustomerControl {...this.props.customer} 
                         onSubmit={this.handleSubmit} 
                         onBack={this.handleOnBack}
-                        onSubmitSuccess={this.handleOnSubmitSuccess} />
+                        onSubmitSuccess={this.handleOnSubmitSuccess}
+                        isDeleteAllow={!!isDelete}
+                        onDelete={this.handleOnDelete} />
         }
         return null;
     }
 
     renderBody = () => {
         
+        console.log(this.props)
         return <Route path='/costumers/:dni/edit' children={ 
-            (props) => ( 
+            ( { match: isEdit }) => ( 
                 <Route path="/customers/:dbi/del" children={
-                    (props) => this.renderCustomerControl(props)
+                    ({ match: isDelete }) => (
+                        this.renderCustomerControl(isEdit, isDelete))
                 } />
             )
         } />
