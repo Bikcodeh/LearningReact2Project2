@@ -1,31 +1,31 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { reduxForm, Field } from "redux-form";
 import { setPropsAsInitial } from "./../helpers/setPropsAsInitial";
-import CustomerActions from './CustomerActions';
+import CustomerActions from "./CustomerActions";
 
 const propTypes = {
   name: PropTypes.string,
   dni: PropTypes.string,
   age: PropTypes.number,
-  onBack: PropTypes.func.isRequired,
+  onBack: PropTypes.func.isRequired
 };
 
 //const isRequired = value => !value && "Este campo es requerido";
 
 const validate = values => {
-    const error = {};
+  const error = {};
 
-    if(!values.name){
-        error.name = "El campo nombre es requerido..."
-    }
+  if (!values.name) {
+    error.name = "El campo nombre es requerido...";
+  }
 
-    if(!values.dni){
-        error.dni = "El dni es requerido..."
-    }
+  if (!values.dni) {
+    error.dni = "El dni es requerido...";
+  }
 
-    return error;
-}
+  return error;
+};
 const isNumber = value => isNaN(Number(value)) && "El campo debe ser un numero";
 
 const MyField = ({ input, meta, type, label }) => (
@@ -45,53 +45,66 @@ const toLower = value => value && value.toLowerCase();
 /* const onlyGrow = (value, previousValue, values) => 
   value && previousValue && (value > previousValue ? value: previousValue) */
 
-const CustomerEdit = ({ name, dni, age, handleSubmit, submitting, onBack, pristine }) => {
-  return (
-    <div>
-      <h2>Edicion del cliente</h2>
-      <form onSubmit={handleSubmit}>
-        <Field
-          name="name"
-          component={MyField}
-          type="text"
-          label="Nombre"
-          parse={toUpper}
-          format={toLower}
-        ></Field>
+class CustomerEdit extends Component {
+  //Establecer el foco en un campo, usando el ref y luego validamos aqui en didmount
+  componentDidMount(){
+    if(this.cuadrodetexto){
+      this.cuadrodetexto.focus();
+    }
+  }
+  render() {
+    const { handleSubmit, submitting, onBack, pristine } = this.props;
+    return (
+      <div>
+        <h2>Edicion del cliente</h2>
+        Nuevo cuadro de texto: <input ref={txt => this.cuadrodetexto = txt} type="text" />
+        <form onSubmit={handleSubmit}>
+          <Field
+            name="name"
+            component={MyField}
+            type="text"
+            label="Nombre"
+            parse={toUpper}
+            format={toLower}
+          ></Field>
 
-        <Field
-          name="dni"
-          component={MyField}
-          type="text"
-          validate={[isNumber]}
-          label="Dni"
-        ></Field>
+          <Field
+            name="dni"
+            component={MyField}
+            type="text"
+            validate={[isNumber]}
+            label="Dni"
+          ></Field>
 
-        <Field
-          name="age"
-          component={MyField}
-          type="number"
-          validate={isNumber}
-          label="Edad"
-          parse={toNumber}
-          //normalize={onlyGrow}
-        ></Field>
+          <Field
+            name="age"
+            component={MyField}
+            type="number"
+            validate={isNumber}
+            label="Edad"
+            parse={toNumber}
+            //normalize={onlyGrow}
+          ></Field>
 
-        <CustomerActions>
-          <button type="submit" disabled={pristine || submitting}>Aceptar</button>
-          <button onClick={onBack} disabled={submitting}>Cancelar</button>
-        </CustomerActions>
-      </form>
-    </div>
-  );
-};
+          <CustomerActions>
+            <button type="submit" disabled={pristine || submitting}>
+              Aceptar
+            </button>
+            <button onClick={onBack} disabled={submitting}>
+              Cancelar
+            </button>
+          </CustomerActions>
+        </form>
+      </div>
+    );
+  }
+}
 
 CustomerEdit.propTypes = propTypes;
 
-const CustomerEditForm = reduxForm(
-    { 
-        form: "CustomerEdit",
-        validate 
-    })(CustomerEdit);
+const CustomerEditForm = reduxForm({
+  form: "CustomerEdit",
+  validate
+})(CustomerEdit);
 
 export default setPropsAsInitial(CustomerEditForm);
