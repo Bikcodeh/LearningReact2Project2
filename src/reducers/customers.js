@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import { FETCH_CUSTOMERS, INSERT_CUSTOMER, UPDATE_CUSTOMER } from './../constants/index';
+import { FETCH_CUSTOMERS, INSERT_CUSTOMER, UPDATE_CUSTOMER, DELETE_CUSTOMER } from './../constants/index';
 
 //El primer argumento del handleActions son las acciones y el segundo es un estado inicial
 export const customers = handleActions({
@@ -18,6 +18,7 @@ export const customers = handleActions({
         const initialValue = []
         // [ ]
         const newCustomers = customers.reduce((acc, customer) => {
+            
             if(customer.id === id){
                 return [ ...acc, customerPayload];
             }else{
@@ -26,5 +27,6 @@ export const customers = handleActions({
         }, initialValue);
 
         return newCustomers;
-    }
+    },
+    [DELETE_CUSTOMER]: (state, action) => state.filter( c => c.id !== action.payload)
 }, []);

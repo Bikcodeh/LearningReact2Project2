@@ -35,9 +35,11 @@ class CustomerCotainer extends React.Component {
         this.props.history.goBack();
     }
 
-    handleOnDelete = () => {
-        console.log("handle delete")
-        this.props.deleteCustomer("30000");
+    handleOnDelete = id => {
+        
+        this.props.deleteCustomer(id).then(v => {
+            this.props.history.goBack();
+        });
     }
 
     handleOnBack =() =>{
@@ -45,8 +47,8 @@ class CustomerCotainer extends React.Component {
     }
 
     renderCustomerControl = (isEdit, isDelete) => {
+        
         if(this.props.customer){
-
             const CustomerControl = isEdit ? CustomerEdit : CustomerData;
             //return <CustomerControl initialValues={this.props.customer} />
             return <CustomerControl {...this.props.customer} 
@@ -61,14 +63,14 @@ class CustomerCotainer extends React.Component {
 
     renderBody = () => {
         
-        console.log(this.props)
-        return <Route path='/costumers/:dni/edit' children={ 
-            ( { match: isEdit }) => ( 
-                <Route path="/customers/:dbi/del" children={
-                    ({ match: isDelete }) => (
-                        this.renderCustomerControl(isEdit, isDelete))
+        return <Route path='/customers/:dni/edit' children={ 
+        ( { match: isEdit } ) => { 
+                return <Route path="/customers/:dni/del" children={
+                    ( { match: isDelete} ) => {
+                        return this.renderCustomerControl(isEdit, isDelete)
+                    }
                 } />
-            )
+            }
         } />
     }
     //<p>Datos del cliente: "{this.props.customer.name}"</p>

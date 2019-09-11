@@ -33,10 +33,12 @@ export const apiDelete = (url, id) => () =>
     method: "DELETE",
     headers: new Headers({ "content-type": "application/json" })
   })
-    .then(v => v.json())
+    .then(v => {
+        return v.json();
+    })
     .then(r => {
       if (r.error) {
         return Promise.reject(r);
       }
-      return r;
+      return id;
     });

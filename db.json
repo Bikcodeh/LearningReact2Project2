@@ -4,19 +4,8 @@
       "id": "33000",
       "dni": "33000",
       "name": "VICTOR HOYOS",
-      "age": 12
-    },
-    {
-      "name": "KHA",
-      "dni": "0216",
-      "age": 18,
-      "id": "t2dqX1I"
-    },
-    {
-      "name": "AAAATTAA",
-      "dni": "1231",
-      "age": 111,
-      "id": "OuMKrf9"
+      "age": 12,
+      "isDeleteAllow": false
     }
   ],
   "posts": [

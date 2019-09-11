@@ -40,16 +40,16 @@ value && previousValue && (value > previousValue ? value: previousValue) */
 
 class CustomerEdit extends Component {
 
-  componentDidMount(){
+  /* componentDidMount(){
     if(this.txt){
       this.txt.focus();
     }
-  }
+  } */
 
   renderField = ({ input, meta, type, label, withFocus }) => (
     <div>
       <label htmlFor={label}>{label}</label>
-      <input {...input} type={!type ? "text" : type}  ref={withFocus && (txt => this.txt = txt)} />
+      <input {...input} type={!type ? "text" : type}  /*ref={withFocus && (txt => this.txt = txt)} *//>
       {meta.touched && meta.error && <span>{meta.error}</span>}
     </div>
   );
